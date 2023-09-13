@@ -1,0 +1,21 @@
+:root {
+  --color-blue: #4285f4;
+  --color-green: #34a853;
+  --color-yellow: #fbbc05;
+  --color-red: #ea4335;
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-mate-black: #212121;
+  --color-light-gray: #f5f5f5;
+  --color-gray: #757575;
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 10px;
+}

@@ -1,0 +1,75 @@
+.card {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(1rem);
+  overflow: hidden;
+  padding: 2rem;
+  border-radius: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  box-sizing: border-box;
+  position: relative;
+  transition: 0.3s;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.card:hover {
+  background-color: rgba(240, 240, 240, 0.8);
+}
+
+.active.card {
+  border: 2px solid var(--color-blue);
+  transition: 0.3s;
+  animation: changeColor 5s infinite;
+}
+
+@keyframes changeColor {
+  0% {
+    border: 1px solid var(--color-blue);
+  }
+  25% {
+    border: 1px solid var(--color-red);
+  }
+  50% {
+    border: 1px solid var(--color-yellow);
+  }
+  75% {
+    border: 1px solid var(--color-green);
+  }
+  100% {
+    border: 1px solid var(--color-blue);
+  }
+}
+
+.cardImage {
+  width: 6rem;
+  border: 1px solid var(--color-mate-black);
+  aspect-ratio: 1/1;
+  border-radius: 100%;
+  overflow: hidden;
+}
+
+.active.card .cardImage {
+  border: 1px solid var(--color-blue);
+  animation: changeColor 5s infinite;
+}
+
+.cardImage > img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.cardContent {
+  flex: 1;
+}
+
+.cardName {
+  font-size: 2.4rem;
+  font-weight: 600;
+}
+
+.cardDescription {
+  font-size: 1.4rem;
+}

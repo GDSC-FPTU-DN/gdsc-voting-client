@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import Loading from "./components/Loading";
 import Background from "./components/Background";
@@ -12,6 +12,7 @@ import { Position } from "./types/position";
 import { postSubmit } from "./apis/postSubmit";
 import getIp from "./apis/getIp";
 import getImageUrl from "./utils/getImageUrl";
+import { getLanguage } from "./utils/languages";
 
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -20,6 +21,7 @@ function App() {
   const [endpoint, _] = useSearchParams();
   const [data, setData] = useState<Position[]>([] as Position[]);
   const [status, setStatus] = useState<number>(0);
+  const language = useRef(getLanguage());
 
   function handleSelectCandidate(index: number) {
     setSelectedCandidate(index);
@@ -81,10 +83,13 @@ function App() {
             >
               <div className="contents-choice">
                 <div className="choice-welcome-title">
-                  Welcome to GDSC Voting
+                  {language.current.welcomeScreen.message}{" "}
+                  {language.current.appName}
                   <Spacer size={16} />
                   <span>
-                    Press <code>Next</code> to start voting
+                    {language.current.welcomeScreen.instructionPrefix}{" "}
+                    <code>{language.current.buttons.next}</code>{" "}
+                    {language.current.welcomeScreen.instructionSuffix}
                   </span>
                 </div>
               </div>
@@ -108,7 +113,9 @@ function App() {
                 </div>
               ))}
               <div className="contents-choice">
-                <div className="choice-welcome-title">Thank you for voting</div>
+                <div className="choice-welcome-title">
+                  {language.current.finishScreen.message}
+                </div>
               </div>
             </div>
           </div>
@@ -135,7 +142,9 @@ function App() {
                     }
               }
             >
-              {currentPage === data.length + 1 ? "Return" : "Previous"}
+              {currentPage === data.length + 1
+                ? language.current.buttons.return
+                : language.current.buttons.previous}
             </div>
             <div
               className="navigator-next"
@@ -162,15 +171,22 @@ function App() {
                     }
               }
             >
-              {currentPage === data.length ? "Done" : "Next"}
+              {currentPage === data.length
+                ? language.current.buttons.finish
+                : language.current.buttons.next}
             </div>
           </div>
           <Background />
         </div>
       ) : (
         <div className="loading-container">
-          GDSC Voting
+          {language.current.appName}
           <Loading />
+          {endpoint.get("endpoint") ? null : (
+            <div>
+              {language.current.splashScreen.message} <code>endpoint</code>
+            </div>
+          )}
         </div>
       )}
     </div>
